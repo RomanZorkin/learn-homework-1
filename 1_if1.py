@@ -13,6 +13,9 @@
 * Вывести содержимое переменной на экран
 
 """
+import glom
+
+
 age_limit = {
     'kindergarten': 'Вы ходите в детский садик',
     'school': 'Вы учитесь в школе',
@@ -23,6 +26,14 @@ age_limit = {
 
 
 def age_profession(age: int) -> str:
+    """Docstring.
+
+    Args:
+        age (int): age of a person
+
+    Returns:
+        str: occupation of a person
+    """
     if age < 7:
         return age_limit['kindergarten']
     elif age < 18:
