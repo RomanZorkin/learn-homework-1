@@ -33,6 +33,7 @@ def age_profession(age: int) -> str:
         return age_limit['work']
     return age_limit['pension']
 
+
 def main():
     """
     Эта функция вызывается автоматически при запуске скрипта в консоли
@@ -42,5 +43,6 @@ def main():
     profession = age_profession(int(age))
     print(profession)
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     main()
