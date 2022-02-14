@@ -13,20 +13,29 @@
 * Вывести содержимое переменной на экран
 
 """
-import glom
-
+from glom import glom
 
 age_limit = {
-    'kindergarten': 'Вы ходите в детский садик',
-    'school': 'Вы учитесь в школе',
-    'college': 'Вы учитесь в ВУЗе',
-    'work': 'Вы работаете',
-    'pension': 'Вы пенсионер - поздравляю у вас все только начинается!',
+    'kindergarten': {
+        'age': 7, 'text': 'Вы ходите в детский садик',
+    },
+    'school': {
+        'age': 18, 'text': 'Вы учитесь в школе',
+    },
+    'college': {
+        'age': 25, 'text': 'Вы учитесь в ВУЗе',
+    },
+    'work': {
+        'age': 65, 'text': 'Вы работаете',
+    },
+    'pension': {
+        'text': 'Вы пенсионер - поздравляю у вас все только начинается!',
+    },
 }
 
 
 def age_profession(age: int) -> str:
-    """Docstring.
+    """Function for determining a person's occupation.
 
     Args:
         age (int): age of a person
@@ -34,15 +43,15 @@ def age_profession(age: int) -> str:
     Returns:
         str: occupation of a person
     """
-    if age < 7:
-        return age_limit['kindergarten']
-    elif age < 18:
-        return age_limit['school']
-    elif age < 25:
-        return age_limit['college']
-    elif age < 65:
-        return age_limit['work']
-    return age_limit['pension']
+    if age < glom(age_limit, 'kindergarten.age'):
+        return glom(age_limit, 'kindergarten.text')
+    elif age < glom(age_limit, 'school.age'):
+        return glom(age_limit, 'school.text')
+    elif age < glom(age_limit, 'college.age'):
+        return glom(age_limit, 'college.text')
+    elif age < glom(age_limit, 'work.age'):
+        return glom(age_limit, 'work.text')
+    return glom(age_limit, 'pension.text')
 
 
 def main():
