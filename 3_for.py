@@ -15,25 +15,49 @@
 * Посчитать и вывести суммарное количество продаж всех товаров
 * Посчитать и вывести среднее количество продаж всех товаров
 """
-from glom import glom
+from typing import List
+from glom import glom, Iter
 
-def summ_for_each(sales_information):
-    for phone in sales_information:
-        print(sum(phone['items_sold']))
-
-def average_for_each(sales_information):
+def summ_for_each(sales_information: List) -> None:
+    """
+    """
     for phone in sales_information:
         print(
-            sum(phone['items_sold'])/len(phone['items_sold'])
+            'Cуммарное количество продаж для "{0}" = {1}'.format(
+                phone['product'],
+                sum(phone['items_sold'])
+            ),
         )
 
-def summ_for_all(sales_information):
-    new_dict = {'target': sales_information}
-    result = glom(new_dict, ('target', ['items_sold'], sum))
-    print(result)
+def average_for_each(sales_information: List) -> None:
+    """
+    """
+    for phone in sales_information:
+        print(
+            'Cреднее количество продаж для "{0}" = {1}'.format(
+                phone['product'],
+                round(
+                    sum(phone['items_sold'])/len(phone['items_sold']),
+                    2,
+                ),
+            ),
+        )
 
-def average_for_all(sales_information):
-    pass
+
+def summ_for_all(sales_information: List) -> List:
+    """
+    """
+    my_dict = {'phones': sales_information}
+    glom_obj = glom(my_dict,  ('phones', ['items_sold']))
+    sold_list = list(glom(glom_obj, Iter().flatten()))
+    return sold_list
+
+def sales_for_all(sales_information: list) -> None:
+    """
+    """
+    sold_list = summ_for_all(sales_information)
+    print(f'Cуммарное количество продаж всех товаров {sum(sold_list)}')
+    print(f'Среднее количество продаж всех товаров {sum(sold_list)/len(sold_list)}')
 
 def main():
     """
@@ -45,11 +69,14 @@ def main():
         {'product': 'Xiaomi Mi11', 'items_sold': [317, 267, 290, 431, 211, 354, 276, 526, 141, 453, 510, 316]},
         {'product': 'Samsung Galaxy 21', 'items_sold': [343, 390, 238, 437, 214, 494, 441, 518, 212, 288, 272, 247]},
     ]
+    function_list = [
+        summ_for_each,
+        average_for_each,
+        sales_for_all,
+    ]
 
-    summ_for_each(sales_information)
-    print(average_for_each(sales_information))
-    print(summ_for_all(sales_information))
-    print(average_for_all(sales_information))
+    for my_fun in function_list:
+        my_fun(sales_information)
 
 if __name__ == "__main__":
     main()
