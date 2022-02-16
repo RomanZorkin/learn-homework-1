@@ -20,5 +20,5 @@ def hello_user() -> None:
         answer = input('Как дела? ')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     hello_user()

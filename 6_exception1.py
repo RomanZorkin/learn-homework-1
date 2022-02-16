@@ -26,5 +26,5 @@ def hello_user() -> None:
             break
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     hello_user()
