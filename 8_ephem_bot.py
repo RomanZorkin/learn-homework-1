@@ -12,8 +12,10 @@
   бота отвечать, в каком созвездии сегодня находится планета.
 
 """
+from datetime import date
 import logging
 
+import ephem
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
@@ -31,15 +33,39 @@ PROXY = {
 
 
 def greet_user(update, context):
-    text = 'Вызван /start'
-    print(text)
+    text = 'Вызван /start'    
+    update.message.reply_text(text)
+
+def get_constellation(update, context):
+    user_text = update.message.text
+    answer = transleter(planet_name(planet))[0]
     update.message.reply_text(text)
 
 
 def talk_to_me(update, context):
-    user_text = update.message.text
-    print(user_text)
+    user_text = update.message.text    
     update.message.reply_text(text)
+
+
+
+def planet_name(message, curent_date: date = date.today()):
+    planet_scheme = {
+        'Mercury': ephem.Mercury,
+        'Venus': ephem.Venus,
+        #'': ephem.,
+        'Mars': ephem.Mars,
+        'Jupiter': ephem.Jupiter,
+        'Saturn': ephem.Saturn,
+        'Pluto': ephem.Pluto,
+        'Neptune': ephem.Neptune,
+        'Uranus': ephem.Uranus,
+    }
+    return ephem.constellation(
+        planet_scheme[message](curent_date)
+    )[1]
+
+def transleter(word):
+    return(word,'русский язык')
 
 
 def main():
@@ -47,6 +73,7 @@ def main():
 
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
+    dp.add_handler(CommandHandler("planet", get_constellation))
     dp.add_handler(MessageHandler(Filters.text, talk_to_me))
 
     mybot.start_polling()
