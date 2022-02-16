@@ -10,7 +10,11 @@
 """
 
 
-def hello_user():
+def hello_user() -> None:
+    """Function asks user 'Как дела?'.
+
+    The function asks a question, until user aswer - 'Хорошо'
+    """
     answer = ''
     while answer != 'Хорошо':
         answer = input('Как дела? ')
