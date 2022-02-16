@@ -98,11 +98,12 @@ def translater(word: str, lang_pair: str = 'en|ru') -> Tuple[str, str]:
     Returns:
         str: Russian word
     """
-    base_url = 'https://api.mymemory.translated.net/'
-    url = f'{base_url}get?q={word}&langpair={lang_pair}'
+    url = 'https://api.mymemory.translated.net/get'
+    #url = f'{base_url}get?q={word}&langpair={lang_pair}'
+    translate_param = {'q': word, 'langpair': lang_pair}
     try:
-        rus_word = requests.request(
-            'GET', url,
+        rus_word = requests.get(
+            url, params=translate_param,
         ).json()['responseData']['translatedText']
     except (
         requests.exceptions.ConnectionError,
