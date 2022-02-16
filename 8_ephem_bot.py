@@ -99,7 +99,6 @@ def translater(word: str, lang_pair: str = 'en|ru') -> Tuple[str, str]:
         str: Russian word
     """
     url = 'https://api.mymemory.translated.net/get'
-    #url = f'{base_url}get?q={word}&langpair={lang_pair}'
     translate_param = {'q': word, 'langpair': lang_pair}
     try:
         rus_word = requests.get(
