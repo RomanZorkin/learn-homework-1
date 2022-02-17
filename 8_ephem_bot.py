@@ -85,15 +85,17 @@ def planet_name(planet: str, current_date: date) -> str:
     return 'No such planet'
 
 
-def translater(word: str, lang_pair: str = 'en|ru') -> Tuple[str, str]:
+def translater(word: str, lang_pair: str = 'la|ru') -> Tuple[str, str]:
     """Translate function.
 
     This function translate constellation name to Russian.
+    Using API endpoint is free. That's why it is not so powerful as
+    Yandex or Google translater API.
 
     Args:
         word (str): word for translation.
         lang_pair (str): you can choose rule ti translate like:\
-            en|ru - from english to russian.
+            la|ru - from latin to russian.
 
     Returns:
         str: Russian word
